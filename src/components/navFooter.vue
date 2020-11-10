@@ -18,7 +18,7 @@
         </div>
         <div class="slogon">Copyright © 2020 城外三石 记录学习-热爱生活</div>
         <div style="margin-top: 20px; font-size: 14px">
-          网站已经艰难维持: {{ daysold }}
+          网站已经诞生: {{ daysold }}
         </div>
       </div>
       <div id="right">
