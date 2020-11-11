@@ -50,7 +50,11 @@
           <span style="margin-left: 7px">购物车</span>
           <span style="margin-left: 7px">(0)</span>
           <transition name="mycard">
-            <div v-show="showShopCard" class="shopcard-box">
+            <div
+              style="z-index: 100"
+              v-show="showShopCard"
+              class="shopcard-box"
+            >
               <Spin v-if="showLoading"></Spin>
               <div v-else>购物车中还没有商品，赶紧选购吧！</div>
             </div>
@@ -62,6 +66,23 @@
       <div class="header-bottomBox">
         <div class="header-logo">
           <a href="/#/index"></a>
+        </div>
+        <div class="header-nav">
+          <ul>
+            <li><a href="">小米手机</a></li>
+            <li><a href="">Redmi 红米</a></li>
+            <li><a href="">电视</a></li>
+            <li><a href="">笔记本</a></li>
+            <li><a href="">家电</a></li>
+            <li><a href="">路由器</a></li>
+            <li><a href="">智能硬件</a></li>
+            <li><a href="">服务</a></li>
+            <li><a href="">社区</a></li>
+          </ul>
+        </div>
+        <div class="header-search">
+          <input type="text" />
+          <div></div>
         </div>
       </div>
     </div>
@@ -218,6 +239,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 }
 /* 头部logo */
 .header-logo {
@@ -253,25 +275,29 @@ export default {
   margin-left: -60px;
   transition: margin 0.2s;
 }
-
-/* 使用伪类来做logo轮播,使用图片的形式用hover控制left的间距 */
-/* .logo:before{
-  content: '';
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url(//s02.mifile.cn/assets/static/image/mi-logo.png) no-repeat 50% 50%;
+.header-nav {
+  margin-left: 30px;
 }
-.logo:after{
-  content: '';
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url(//s02.mifile.cn/assets/static/image/mi-logo.png) no-repeat 50% 50%;
+.header-nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.logo:hover:before{
-    margin-left: 0px;
-} */
+.header-nav ul li {
+  margin-right: 20px;
+}
+.header-nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+.header-nav ul li a:hover {
+  color: #ff6700;
+}
+.header-search {
+  position: absolute;
+  right: 0px;
+}
 
 /* 加载状态 */
 .shopcard-box >>> .ivu-spin-dot {
