@@ -239,7 +239,7 @@ export default {
   width: 60px;
   background: url(//s02.mifile.cn/assets/static/image/mi-logo.png) no-repeat 50%
     50%;
-  transition: margin 0.3s;
+  transition: margin 0.2s;
 }
 .header-logo a:after {
   content: "";
@@ -251,7 +251,7 @@ export default {
 }
 .header-logo a:hover:before {
   margin-left: -60px;
-  transition: margin 0.3s;
+  transition: margin 0.2s;
 }
 
 /* 使用伪类来做logo轮播,使用图片的形式用hover控制left的间距 */
@@ -280,16 +280,16 @@ export default {
   height: 40px !important;
 }
 /* 作者二维码过渡动画 */
-.mycard-enter-active,
-.mycard-leave-active {
+.mybox-enter-active,
+.mybox-leave-active {
   transition: height 0.3s ease;
 }
-.mycard-leave-active,
-.mycard-enter {
+.mybox-leave-active,
+.mybox-enter {
   height: 0px !important;
 }
-.mycard-leave,
-.mycard-enter-active {
+.mybox-leave,
+.mybox-enter-active {
   height: 130px;
 }
 /* 购物车过渡动画 */
