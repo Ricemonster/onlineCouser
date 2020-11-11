@@ -60,8 +60,9 @@
     </div>
     <div class="header-bottom">
       <div class="header-bottomBox">
-        <a class="logo">
-        </a>
+        <div class="header-logo">
+          <a href="/#/index"></a>
+        </div>
       </div>
     </div>
   </div>
@@ -205,12 +206,12 @@ export default {
   justify-content: center;
 }
 /* 头部栏底部部分 */
-.header-bottom{
-    width: 100%;
-    height: 100px;
-    background: #ffffff;
+.header-bottom {
+  width: 100%;
+  height: 100px;
+  background: #ffffff;
 }
-.header-bottomBox{
+.header-bottomBox {
   width: 1226px;
   height: 100%;
   margin: 0 auto;
@@ -218,18 +219,43 @@ export default {
   flex-direction: row;
   align-items: center;
 }
-.logo{
+/* 头部logo */
+.header-logo {
+  display: inline-block;
   height: 60px;
   width: 60px;
-  background: #FF6700;
-  text-decoration: none;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  background-color: #ff6700;
+  overflow: hidden;
 }
+.header-logo a {
+  display: inline-block;
+  width: 120px;
+  height: 60px;
+}
+.header-logo a:before {
+  content: "";
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  background: url(//s02.mifile.cn/assets/static/image/mi-logo.png) no-repeat 50%
+    50%;
+  transition: margin 0.3s;
+}
+.header-logo a:after {
+  content: "";
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  background: url(//s02.mifile.cn/assets/static/image/mi-home.png) no-repeat 60%
+    60%;
+}
+.header-logo a:hover:before {
+  margin-left: -60px;
+  transition: margin 0.3s;
+}
+
 /* 使用伪类来做logo轮播,使用图片的形式用hover控制left的间距 */
-.logo:before{
+/* .logo:before{
   content: '';
   display: inline-block;
   width: 50px;
@@ -245,9 +271,7 @@ export default {
 }
 .logo:hover:before{
     margin-left: 0px;
-}
-
-
+} */
 
 /* 加载状态 */
 .shopcard-box >>> .ivu-spin-dot {
@@ -281,5 +305,4 @@ export default {
 .mycard-enter-active {
   height: 130px;
 }
-
 </style>
