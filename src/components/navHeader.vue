@@ -19,7 +19,7 @@
           >关于我
           <div class="xiaosanjiao" v-show="showAuthorQrcode"></div>
           <transition name="mybox">
-            <div v-show="showAuthorQrcode" id="author_qrcode">
+            <div style="z-index:50;" v-show="showAuthorQrcode" id="author_qrcode">
               <img
                 src="../assets/images/aboutMe.jpg"
                 alt="关于作者"
@@ -295,10 +295,15 @@ export default {
   color: #ff6700;
 }
 .header-search {
+
+}
+.header-search{
   position: absolute;
   right: 0px;
 }
+.header-search input{
 
+}
 /* 加载状态 */
 .shopcard-box >>> .ivu-spin-dot {
   background-color: #ff6700 !important;
