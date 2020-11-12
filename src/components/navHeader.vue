@@ -72,7 +72,7 @@
           <a href="/#/index"></a>
         </div>
         <div class="header-nav">
-          <ul>
+          <ul @mouseover="showGoodsList = true" @mouseleave="showgoods">
             <li><a href="">小米手机</a></li>
             <li><a href="">Redmi 红米</a></li>
             <li><a href="">电视</a></li>
@@ -105,6 +105,16 @@
           </div>
         </div>
       </div>
+      <!-- 显示商品下拉栏 -->
+      <transition name="goods">
+        <!-- 进入后触发事件 问题是会再一次触发动画事件 -->
+        <div
+          v-if="showGoodsList"
+          @mouseover="shoGoods"
+          @mouseleave="showGoodsList = false"
+          class="goodsList"
+        ></div>
+      </transition>
     </div>
   </div>
 </template>
@@ -120,6 +130,7 @@ export default {
       showLoading: true,
       enterOrleave: false, // 输入框是进入还是离开
       hotSearch: ["耳机", "空调", "手机", "全部商品", "小米10"],
+      showGoodsList: false,
     };
   },
   components: {
@@ -138,6 +149,19 @@ export default {
     showShopingCar() {
       this.enterOrleave = true;
     },
+    showgoods() {
+      // 标签栏移出事件
+      let that = this;
+      this.goodsCard = setTimeout(function () {
+        that.showGoodsList = false;
+      }, 500);
+    },
+    shoGoods() {
+      // 在移出的时候移动到了我们的商品页面
+      clearTimeout(this.goodsCard);
+    },
+    // 商品栏切换事件
+    changeTabbar() {},
   },
 };
 </script>
@@ -390,6 +414,17 @@ export default {
   color: #757575 !important;
   text-decoration: none;
 }
+.goodsList {
+  height: 270px;
+  width: 100%;
+  background: #FFFFFF;
+  position: absolute;
+  top: 140px;
+  left: 0px;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
 /* 加载状态 */
 .shopcard-box >>> .ivu-spin-dot {
   background-color: #ff6700 !important;
@@ -421,5 +456,18 @@ export default {
 .mycard-leave,
 .mycard-enter-active {
   height: 130px;
+}
+/* tabbar栏的下拉动画 */
+.goods-enter-active,
+.goods-leave-active {
+  transition: height 0.5s ease;
+}
+.goods-leave-active,
+.goods-enter {
+  height: 0px !important;
+}
+.goods-leave,
+.goods-enter-active {
+  height: 270px;
 }
 </style>
