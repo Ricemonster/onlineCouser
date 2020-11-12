@@ -19,7 +19,11 @@
           >关于我
           <div class="xiaosanjiao" v-show="showAuthorQrcode"></div>
           <transition name="mybox">
-            <div style="z-index:50;" v-show="showAuthorQrcode" id="author_qrcode">
+            <div
+              style="z-index: 50"
+              v-show="showAuthorQrcode"
+              id="author_qrcode"
+            >
               <img
                 src="../assets/images/aboutMe.jpg"
                 alt="关于作者"
@@ -80,9 +84,25 @@
             <li><a href="">社区</a></li>
           </ul>
         </div>
-        <div class="header-search">
-          <input type="text" />
-          <div></div>
+        <div class="header-search" :class="{ enterClass: enterOrleave }">
+          <input
+            @focus="showShopingCar"
+            @blur="enterOrleave = false"
+            type="text"
+            placeholder="路由器"
+            placeholder-style="color:#757575"
+          />
+          <div class="hader-btn" :class="{ enterClassA: enterOrleave }">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-search"></use>
+            </svg>
+          </div>
+        </div>
+        <!-- inputHotSearch -->
+        <div v-show="enterOrleave" class="hotSearch">
+          <div v-for="(item, index) in hotSearch" :key="index" class="hotItme">
+            <a>{{ item }}</a>
+          </div>
         </div>
       </div>
     </div>
@@ -90,7 +110,7 @@
 </template>
 
 <script>
-import { Spin } from "view-design";
+import { Spin, Icon } from "view-design";
 export default {
   name: "navHeader",
   data() {
@@ -98,10 +118,13 @@ export default {
       showAuthorQrcode: false, // 控制作者二维码显示
       showShopCard: false, // 显示购物车
       showLoading: true,
+      enterOrleave: false, // 输入框是进入还是离开
+      hotSearch: ["耳机", "空调", "手机", "全部商品", "小米10"],
     };
   },
   components: {
     Spin,
+    Icon,
   },
   methods: {
     showCard(value) {
@@ -111,6 +134,9 @@ export default {
       setTimeout(function () {
         that.showLoading = false;
       }, 2000);
+    },
+    showShopingCar() {
+      this.enterOrleave = true;
     },
   },
 };
@@ -295,14 +321,74 @@ export default {
   color: #ff6700;
 }
 .header-search {
-
-}
-.header-search{
   position: absolute;
-  right: 0px;
+  right: 10px;
+  height: 50px;
+  border: 1px solid #e0e0e0;
+  width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.header-search input{
-
+.header-search:hover {
+  border: 1px solid #b0b0b0;
+}
+.header-search:hover .hader-btn {
+  border-left: 1px solid #b0b0b0;
+}
+.header-search .hader-btn svg {
+  font-size: 20px;
+}
+.hader-btn {
+  height: 100%;
+  width: 50px;
+  border-left: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.hader-btn:hover {
+  background: #ff6700;
+}
+.hader-btn:hover svg {
+  color: #ffffff;
+}
+.header-search input {
+  outline: none;
+  margin-left: 10px;
+  border: none;
+}
+.enterClass {
+  border: 1px solid #ff6700 !important;
+}
+.enterClassA {
+  border-left: 1px solid #ff6700 !important;
+}
+.hotSearch {
+  position: absolute;
+  width: 210px;
+  background: #ffffff;
+  border: 1px solid #ff6700;
+  border-top: none;
+  right: 60px;
+  top: 75px;
+}
+.hotItme {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 10px;
+  padding-left: 20px;
+}
+.hotItme:hover {
+  background: #F1F3F4;
+}
+.hotItme a {
+  color: #757575 !important;
+  text-decoration: none;
 }
 /* 加载状态 */
 .shopcard-box >>> .ivu-spin-dot {
