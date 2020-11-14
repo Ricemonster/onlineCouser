@@ -73,15 +73,15 @@
         </div>
         <div class="header-nav">
           <ul @mouseover="showGoodsList = true" @mouseleave="showgoods">
-            <li><a href="">小米手机</a></li>
-            <li><a href="">Redmi 红米</a></li>
-            <li><a href="">电视</a></li>
-            <li><a href="">笔记本</a></li>
-            <li><a href="">家电</a></li>
-            <li><a href="">路由器</a></li>
-            <li><a href="">智能硬件</a></li>
-            <li><a href="">服务</a></li>
-            <li><a href="">社区</a></li>
+            <li @mouseenter="changeTabbar(0)"><a href="">小米手机</a></li>
+            <li @mouseenter="changeTabbar(1)"><a href="">Redmi 红米</a></li>
+            <li @mouseenter="changeTabbar(2)"><a href="">电视</a></li>
+            <li @mouseenter="changeTabbar(3)"><a href="">笔记本</a></li>
+            <li @mouseenter="changeTabbar(4)"><a href="">家电</a></li>
+            <li @mouseenter="changeTabbar(5)"><a href="">路由器</a></li>
+            <li @mouseenter="changeTabbar(6)"><a href="">智能硬件</a></li>
+            <li @mouseenter="changeTabbar(7)"><a href="">服务</a></li>
+            <li @mouseenter="changeTabbar(8)"><a href="">社区</a></li>
           </ul>
         </div>
         <div class="header-search" :class="{ enterClass: enterOrleave }">
@@ -111,9 +111,26 @@
         <div
           v-if="showGoodsList"
           @mouseover="shoGoods"
-          @mouseleave="showGoodsList = false"
+          @mouseleave="shoGoods('s')"
           class="goodsList"
-        ></div>
+        >
+          <div class="itembox">
+            <div
+              class="goodsItme"
+              v-for="(item, index) in nowGoods"
+              :key="index"
+            >
+              <img
+                :src="item.imgUrl"
+                alt="商品图片"
+                style="margin-bottom: 20px"
+              />
+              <span>{{ item.name }}</span>
+              <span style="color: #ff6700">{{ item.price }}</span>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
       </transition>
     </div>
   </div>
@@ -130,13 +147,44 @@ export default {
       showLoading: true,
       enterOrleave: false, // 输入框是进入还是离开
       hotSearch: ["耳机", "空调", "手机", "全部商品", "小米10"],
-      showGoodsList: false,
+      showGoodsList: false, // 商品下拉栏是否显示
+      goodsList: [
+        [
+          {
+            name: "小米10至尊纪念版",
+            imgUrl:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b11742a0be47f9d97bb6a13ea580018d.png?thumb=1&w=160&h=110&f=webp&q=90",
+            price: "5299元起",
+          },
+          {
+            name: "小米10至尊纪念版",
+            imgUrl:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b11742a0be47f9d97bb6a13ea580018d.png?thumb=1&w=160&h=110&f=webp&q=90",
+            price: "5299元起",
+          },
+          {
+            name: "小米10至尊纪念版",
+            imgUrl:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b11742a0be47f9d97bb6a13ea580018d.png?thumb=1&w=160&h=110&f=webp&q=90",
+            price: "5299元起",
+          },
+          {
+            name: "小米10至尊纪念版",
+            imgUrl:
+              "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b11742a0be47f9d97bb6a13ea580018d.png?thumb=1&w=160&h=110&f=webp&q=90",
+            price: "5299元起",
+          },
+        ],
+      ],
+      gindex: "", // 当前的下拉商品下标
+      nowGoods: [],
     };
   },
   components: {
     Spin,
     Icon,
   },
+  mounted() {},
   methods: {
     showCard(value) {
       this.showShopCard = value;
@@ -160,8 +208,10 @@ export default {
       // 在移出的时候移动到了我们的商品页面
       clearTimeout(this.goodsCard);
     },
-    // 商品栏切换事件
-    changeTabbar() {},
+    // 商品栏切换事件,更改当前商品栏的商品
+    changeTabbar(index) {
+      this.nowGoods = this.goodsList[index];
+    },
   },
 };
 </script>
@@ -195,6 +245,11 @@ export default {
 .header-container-left a:hover {
   cursor: pointer;
   color: #ffffff;
+}
+.line {
+  height: 10px;
+  width: 20px;
+  background: red;
 }
 /* 作者展示二维码 */
 #aboutme {
@@ -415,7 +470,7 @@ export default {
   text-decoration: none;
 }
 .goodsList {
-  height: 270px;
+  height: 230px;
   width: 100%;
   background: #FFFFFF;
   position: absolute;
@@ -424,7 +479,27 @@ export default {
   border: 1px solid #E0E0E0;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.18);
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
+.itembox {
+  width: 1100px;
+  margin: 0 auto;
+  height: 180px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
+}
+.goodsItme {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
 /* 加载状态 */
 .shopcard-box >>> .ivu-spin-dot {
   background-color: #ff6700 !important;
@@ -468,6 +543,6 @@ export default {
 }
 .goods-leave,
 .goods-enter-active {
-  height: 270px;
+  height: 230px;
 }
 </style>
